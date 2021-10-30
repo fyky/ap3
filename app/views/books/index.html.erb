@@ -19,10 +19,9 @@
         <tr>
           <td><img src="/assets/noimage2.jpeg"></td>
           <td>リーダブルコード</td>
-          <td>より良いコードを書くためのシンプルで実践的なテクニック。</td>
+          <td>より良いコード</td>
           <td></td>
         </tr>
-
 
 
       <% @books.each do |book| %>
@@ -34,10 +33,28 @@
           </td>
           <td><%= link_to book.title, book_path(book.id) %></td>
           <td><%=book.body %></td>
+          <td>
+            <% if book.favorited_by?(current_user) %>
+              <%= link_to book_favorites_path(book), method: :delete do %>
+              ♥<%= book.favorites.count %> いいね
+              <% end %>
+            <% else %>
+              <%= link_to book_favorites_path(book), method: :post do %>
+              ♡<%= book.favorites.count %> いいね
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <%= "コメント数：#{book.book_comments.count} " %>
 
+          </td>
         </tr>
       <% end %>
       </table>
+
+
+
+
     </div>
 
   </div>
